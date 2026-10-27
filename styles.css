@@ -4,6 +4,23 @@
   box-sizing: border-box;
 }
 
+:root {
+  color-scheme: light;
+  --color-page: #f7f8fc;
+  --color-surface: #ffffff;
+  --color-header: rgb(255 255 255 / 96%);
+  --color-text: #172033;
+  --color-muted: #586174;
+  --color-link: #5145cd;
+  --color-link-hover: #3026a3;
+  --color-focus: #7a4b00;
+  --color-border: #e3e6ef;
+  --color-control-border: #6c7484;
+  --color-hover-surface: #f0efff;
+  --color-image-placeholder: #e3e6ef;
+  --color-shadow: rgb(23 32 51 / 6%);
+}
+
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: none;
@@ -14,8 +31,8 @@ body {
   margin: 0;
   min-height: 100vh;
   min-width: 0;
-  background: #f7f8fc;
-  color: #172033;
+  background: var(--color-page);
+  color: var(--color-text);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.6;
 }
@@ -51,18 +68,35 @@ ul {
 }
 
 a {
-  color: #5145cd;
+  color: var(--color-link);
   text-underline-offset: 0.2em;
+  transition: color 160ms ease;
 }
 
 a:hover {
-  color: #3026a3;
+  color: var(--color-link-hover);
 }
 
 a:focus-visible,
 button:focus-visible {
-  outline: 3px solid #f59e0b;
+  outline: 3px solid var(--color-focus);
   outline-offset: 3px;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 20;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.75rem 1rem;
+  transform: translateY(calc(-100% - 1rem));
+  border-radius: 0.375rem;
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 header {
@@ -74,9 +108,9 @@ header {
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid #e3e6ef;
-  background: rgb(255 255 255 / 96%);
-  box-shadow: 0 0.25rem 1rem rgb(23 32 51 / 6%);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-header);
+  box-shadow: 0 0.25rem 1rem var(--color-shadow);
 }
 
 header h1 {
@@ -91,16 +125,17 @@ header h1 {
   width: 2.75rem;
   height: 2.75rem;
   place-content: center;
-  border: 1px solid #d9dced;
+  border: 1px solid var(--color-control-border);
   border-radius: 0.5rem;
-  background: #fff;
+  background: var(--color-surface);
+  transition: background-color 160ms ease;
 }
 
 .menu-toggle span {
   width: 1.25rem;
   height: 2px;
   border-radius: 2px;
-  background: #172033;
+  background: var(--color-text);
 }
 
 nav {
@@ -122,14 +157,15 @@ nav a {
   display: block;
   padding: 0.625rem 0.75rem;
   border-radius: 0.375rem;
-  color: #172033;
+  color: var(--color-text);
   font-weight: 600;
   text-decoration: none;
+  transition: color 160ms ease, background-color 160ms ease;
 }
 
 nav a:hover {
-  background: #f0efff;
-  color: #3026a3;
+  background: var(--color-hover-surface);
+  color: var(--color-link-hover);
 }
 
 main {
@@ -143,7 +179,7 @@ section {
 }
 
 section + section {
-  border-top: 1px solid #e3e6ef;
+  border-top: 1px solid var(--color-border);
 }
 
 section h2 {
@@ -169,7 +205,7 @@ section h2 {
   aspect-ratio: 1;
   border-radius: 1rem;
   object-fit: cover;
-  background: #e3e6ef;
+  background: var(--color-image-placeholder);
 }
 
 #skills ul {
@@ -180,9 +216,9 @@ section h2 {
 
 #skills li,
 .project-grid article {
-  border: 1px solid #e3e6ef;
+  border: 1px solid var(--color-border);
   border-radius: 0.75rem;
-  background: #fff;
+  background: var(--color-surface);
 }
 
 #skills li {
@@ -228,9 +264,9 @@ section h2 {
 
 footer {
   padding: 1.5rem 1rem;
-  border-top: 1px solid #e3e6ef;
-  background: #fff;
-  color: #586174;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-muted);
   text-align: center;
 }
 
@@ -292,5 +328,35 @@ footer p {
 
   .project-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --color-page: #111827;
+    --color-surface: #1b2433;
+    --color-header: rgb(27 36 51 / 96%);
+    --color-text: #f3f4f6;
+    --color-muted: #c1c8d4;
+    --color-link: #c4baff;
+    --color-link-hover: #dfd9ff;
+    --color-focus: #ffd166;
+    --color-border: #394456;
+    --color-control-border: #778399;
+    --color-hover-surface: #292542;
+    --color-image-placeholder: #343c4d;
+    --color-shadow: rgb(0 0 0 / 24%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
